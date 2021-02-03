@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<header>
+    <title>API TEST</title>
+    <style>
+        td {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        #result,
+        th {
+            border: 1px solid black;
+        }
+    </style>
+</header>
+
+<body>
+    <div>
+        <table id="result">
+            <tr>
+                <th>Merchant Logo</th>
+                <th>Merchant Name</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Aff link</th>
+            </tr>
+        </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $.getJSON("http://search-api.fie.future.net.uk/widget.php?id=review&site=TRD&model_name=iPad_Air", function(data) {
+            var offers = data.widget.data.offers;
+            console.log(offers);
+            $.each(offers, function(k, v) {
+                // Could be better with template feature from various framework and libraries.
+                var str = "<tr><td><img src='" + v.merchant.logo_url + "' alt=''productImage' width='100'></td><td>" + v.merchant.name + "</td><td>" + v.offer.name + "</td><td>" + v.offer.price + " " + v.offer.currency_iso + "</td><td><a href='" + v.offer.link + "''>BUY NOW</a></td></tr>";
+                $("#result").append(str);
+            })
+        });
+    </script>
+</body>
+
+</html>
