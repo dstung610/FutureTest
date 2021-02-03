@@ -11,3 +11,4 @@ gcc -o fizzbuzz fizzbuzz.c
 Simply open the html file
 
 ## Test 3
+php reformat.php

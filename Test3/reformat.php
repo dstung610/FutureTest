@@ -1,6 +1,7 @@
 <?php
-$output = "output/";
+
 $dir = new RecursiveDirectoryIterator('data/');
+$appCode = parse_ini_file("data/appCodes.ini");
 foreach (new RecursiveIteratorIterator($dir) as $filename => $file) {
     // $file = "data/20131004/device-tokens-for-sfx-collection-1.log";
     if (!is_dir($file)) {
@@ -22,9 +23,10 @@ foreach (new RecursiveIteratorIterator($dir) as $filename => $file) {
                 $i = 0;
                 while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
                     if ($flag == 1) {
-                        $row = array();
+                        $row = array();                        
+                        print_r($appCode["" . $data[0]]);
                         array_push($row, $i); //id
-                        array_push($row, $data[0]); //Appcode
+                        array_push($row, array_search($data[0], $appCode)); //Appcode
                         array_push($row, $data[1]); //deviceId = deviceToken
                         array_push($row, $data[2]); //Contactable = deviceTokenStatus
 
