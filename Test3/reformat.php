@@ -23,10 +23,15 @@ foreach (new RecursiveIteratorIterator($dir) as $filename => $file) {
                 $i = 0;
                 while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
                     if ($flag == 1) {
-                        $row = array();                        
-                        print_r($appCode["" . $data[0]]);
+                        $row = array();
                         array_push($row, $i); //id
-                        array_push($row, array_search($data[0], $appCode)); //Appcode
+                        
+                        if (array_search($data[0], $appCode) !== false) {
+                            array_push($row, array_search($data[0], $appCode)); //Appcode
+                        } else {
+                            array_push($row, $data[0]); //Appcode
+                        }
+
                         array_push($row, $data[1]); //deviceId = deviceToken
                         array_push($row, $data[2]); //Contactable = deviceTokenStatus
 
